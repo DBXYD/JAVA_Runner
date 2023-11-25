@@ -1,8 +1,13 @@
 public class Camera {
     private int x;
     private int y;
-    private double ax, ay;
-    private double vx, vy;
+
+    private double x_pos = 0;
+    private double y_pos = 0;
+    private double ax = 0;
+    private double ay = 0;
+    private double vx = 0;
+    private double vy = 0;
 
 
 
@@ -35,15 +40,17 @@ public class Camera {
     }
 
     public void update(long time, long deltaTime, Hero hero){
+
         if(deltaTime < 100) {
-            ax = 5*((double)(hero.getX() - x) - 1.2 * vx);
-            vx += (ax * (double)deltaTime) / 1000;
-            x += (vx * (double)deltaTime) / 1000;
-            System.out.println(deltaTime);
+            double dt = (double) deltaTime;
+            ax = ((hero.getX() - x_pos - 100) - 1.414 * (vx- hero.getVx()));
+            vx += (ax * ((double)deltaTime)) / 1000.0;
+            x_pos += (vx * ((double)deltaTime)) / 1000.0;
+            x = (int) x_pos;
         }
     }
     @Override
     public String toString() {
-        return "Camera{" + x + ", " + y +'}';
+        return "{x = " + x_pos + ", vx = " + vx +", ax = " + ax + "}";
     }
 }

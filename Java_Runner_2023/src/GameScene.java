@@ -1,9 +1,11 @@
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
+import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
 
 public class GameScene extends Scene {
     Camera camera;
@@ -27,9 +29,25 @@ public class GameScene extends Scene {
                 hero.update(time);
                 camera.update(time, delta_ms, hero);
                 update(time);
-                System.out.println(camera);
             }
         };
+
+        this.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                switch (keyEvent.getCode()){
+                    case D:
+                        hero.setVx(hero.getVx()+10);
+                        break;
+                    case Q:
+                        hero.setVx(hero.getVx()-10);
+                        break;
+                    case Z:
+                        hero.setVy(-500);
+                }
+
+            }
+        });
 
         render(root);
         timer.start();

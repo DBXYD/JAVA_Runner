@@ -3,8 +3,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public abstract class AnimatedThing {
-    protected double x;
-    protected double y;
+    protected double x, y, vx = 0, vy = 0, ay;
     protected ImageView imageView;
     protected int attitude; // attitude value : 0, still // 1 : running // 2 : jumping up // 3 : jumping down
     protected int indexFrame;
@@ -57,6 +56,26 @@ public abstract class AnimatedThing {
     public void update(long time) {
         indexFrame = ((int) (time/1e8))%maximumIndex;
         imageView.setViewport(new Rectangle2D(indexFrame*windowSizeX,0, windowSizeX, windowSizeY));
+        x += vx * 0.016;
+        ay = 500;
+        vy += ay * 0.016;
+        y += vy * 0.016;
+        if(y > 250) y = 250;
     }
 
+    public double getVx() {
+        return vx;
+    }
+
+    public void setVx(double vx) {
+        this.vx = vx;
+    }
+
+    public double getVy() {
+        return vy;
+    }
+
+    public void setVy(double vy) {
+        this.vy = vy;
+    }
 }
