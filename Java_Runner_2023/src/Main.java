@@ -13,7 +13,6 @@ public class Main extends Application {
         primaryStage.setTitle("Java Runner 2023 by N.P.");
         primaryStage.setWidth(600);
         primaryStage.setHeight(300);
-        //primaryStage.setResizable(false);
         primaryStage.setScene(gameScene);
         primaryStage.show();
     }
